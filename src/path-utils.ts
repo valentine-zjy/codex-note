@@ -55,19 +55,28 @@ export function assetUrl(path: string) {
 }
 
 export function routeFor(path: string, hash = "") {
-  return `#/${encodePath(path)}${hash}`;
+  return `#/notes/${encodePath(path)}${hash}`;
 }
 
 export function parseRoute() {
   const raw = window.location.hash.replace(/^#\/?/, "");
   const hashIndex = raw.indexOf("#");
-  const encodedPath = hashIndex >= 0 ? raw.slice(0, hashIndex) : raw;
+  const encodedRoute = hashIndex >= 0 ? raw.slice(0, hashIndex) : raw;
   const anchor = hashIndex >= 0 ? raw.slice(hashIndex + 1) : "";
+  const [viewPart, ...pathParts] = encodedRoute.split("/");
+  const view = viewPart || "home";
+  const encodedPath =
+    view === "notes" ? pathParts.join("/") : encodedRoute;
 
   return {
+    view,
     path: encodedPath ? decodeURIComponent(encodedPath) : "",
     anchor
   };
+}
+
+export function pageRoute(view: "home" | "notes" | "resume" | "todo") {
+  return view === "home" ? "#/" : `#/${view}`;
 }
 
 export function formatBytes(bytes: number) {

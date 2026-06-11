@@ -375,7 +375,15 @@ async function pathExists(filePath) {
 
 async function loadUsersConfig() {
   if (process.env.VALENTIN_USERS_JSON) {
-    const config = JSON.parse(process.env.VALENTIN_USERS_JSON);
+    let config;
+    try {
+      config = JSON.parse(process.env.VALENTIN_USERS_JSON);
+    } catch {
+      throw new HttpError(
+        503,
+        "VALENTIN_USERS_JSON 不是合法 JSON，请检查 Vercel 环境变量"
+      );
+    }
     return {
       ...config,
       source: "VALENTIN_USERS_JSON"
@@ -398,8 +406,8 @@ async function loadUsersConfig() {
 
   if (!configPath) {
     throw new HttpError(
-      500,
-      "生产环境缺少用户配置，请设置 VALENTIN_USERS_JSON 或 VALENTIN_USERS_CONFIG"
+      503,
+      "服务端缺少用户配置，请在 Vercel 环境变量中设置 VALENTIN_USERS_JSON"
     );
   }
 
@@ -426,13 +434,24 @@ function passwordMatches(user, password) {
 async function getUserConfig() {
   const config = await loadUsersConfig();
   if (!Array.isArray(config.users) || config.users.length === 0) {
-    throw new HttpError(500, "用户配置为空");
+    throw new HttpError(503, "用户配置为空，请至少配置一个用户");
   }
 
   const sessionSecret =
     process.env.VALENTIN_SESSION_SECRET ??
     config.sessionSecret ??
     "local-development-session-secret";
+
+  if (
+    process.env.NODE_ENV === "production" &&
+    !process.env.VALENTIN_SESSION_SECRET &&
+    !config.sessionSecret
+  ) {
+    throw new HttpError(
+      503,
+      "生产环境缺少会话密钥，请设置 VALENTIN_SESSION_SECRET 或在用户配置中提供 sessionSecret"
+    );
+  }
 
   return {
     users: config.users,

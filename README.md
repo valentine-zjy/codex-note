@@ -7,6 +7,11 @@
 - 访问网站前必须登录。
 - 用户名和密码来自本地配置文件，不开放注册。
 - 支持角色权限：`admin` 可以在线编辑 Markdown，`viewer` 只能阅读。
+- 登录后进入网站首页，可以选择进入不同组件。
+- 支持整站风格切换：清爽、夜间、暖光。
+- 支持 Markdown 展示风格切换：经典阅读、纸张排版、紧凑扫描、长文衬线。
+- 内置个人简历展示组件。
+- 内置 Todo List 组件，数据保存在当前浏览器的 `localStorage`。
 - Markdown 文档放在 `content/codex-desktop-guide`，不再放在 `public` 目录中。
 - 支持多层文件夹、全文搜索、右侧目录、相对图片、相对 Markdown 链接。
 - 图片和附件通过 `/api/asset` 返回，需要登录 cookie。
@@ -133,6 +138,38 @@ npm run build
 
 部署前需要在 Vercel 中配置用户 JSON 和会话密钥环境变量。
 
+如果部署后登录时报错，优先检查这两个环境变量：
+
+```text
+VALENTIN_USERS_JSON
+VALENTIN_SESSION_SECRET
+```
+
+`VALENTIN_USERS_JSON` 示例：
+
+```json
+{
+  "users": [
+    {
+      "username": "admin",
+      "password": "your-admin-password",
+      "displayName": "Valentin Admin",
+      "role": "admin",
+      "priority": 100
+    },
+    {
+      "username": "reader",
+      "password": "your-reader-password",
+      "displayName": "Reader",
+      "role": "viewer",
+      "priority": 10
+    }
+  ]
+}
+```
+
+`VALENTIN_SESSION_SECRET` 建议使用一段较长的随机字符串。环境变量修改后，需要在 Vercel 重新部署。
+
 ## 项目结构
 
 ```text
@@ -162,6 +199,8 @@ npm run build
 本地浏览器验证建议：
 
 1. 未登录访问首页，应看到登录页。
-2. 使用 `reader` 登录，只能阅读，没有编辑按钮。
-3. 使用 `admin` 登录，可以编辑并保存 Markdown。
-4. 直接访问旧路径 `/notes/...` 应不可用。
+2. 登录后进入首页，不应直接进入文章。
+3. 首页可以进入 Codex 文档、个人简历和 Todo List。
+4. 使用 `reader` 登录，只能阅读 Markdown，没有编辑按钮。
+5. 使用 `admin` 登录，可以编辑并保存 Markdown。
+6. 直接访问旧路径 `/notes/...` 应不可用。

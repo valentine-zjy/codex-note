@@ -2,25 +2,35 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import type { FormEvent, MouseEvent } from "react";
 import {
   BookOpen,
+  BriefcaseBusiness,
+  Check,
   ChevronDown,
   ChevronRight,
+  Circle,
   Copy,
   Edit3,
   ExternalLink,
   Eye,
   FileText,
   Folder,
+  Home,
+  LayoutDashboard,
+  ListTodo,
   LogOut,
   Menu,
-  PanelLeftClose,
+  Moon,
+  Palette,
   Save,
   Search,
   ShieldCheck,
+  Sparkles,
+  SunMedium,
+  Trash2,
   User,
   X
 } from "lucide-react";
 import { renderMarkdown } from "./markdown";
-import { formatBytes, noteUrl, parseRoute, routeFor } from "./path-utils";
+import { formatBytes, noteUrl, pageRoute, parseRoute, routeFor } from "./path-utils";
 import type {
   AuthUser,
   Heading,
@@ -34,12 +44,46 @@ type NotesIndexPayload = NotesIndex & {
   user?: AuthUser;
 };
 
+type ViewName = "home" | "notes" | "resume" | "todo";
+type SiteTheme = "clean" | "night" | "sunrise";
+type MarkdownTheme = "classic" | "paper" | "compact" | "serif";
+
+type TodoItem = {
+  id: string;
+  text: string;
+  done: boolean;
+  createdAt: number;
+};
+
+const siteThemes: Array<{ id: SiteTheme; label: string; icon: typeof SunMedium }> = [
+  { id: "clean", label: "清爽", icon: SunMedium },
+  { id: "night", label: "夜间", icon: Moon },
+  { id: "sunrise", label: "暖光", icon: Sparkles }
+];
+
+const markdownThemes: Array<{ id: MarkdownTheme; label: string }> = [
+  { id: "classic", label: "经典阅读" },
+  { id: "paper", label: "纸张排版" },
+  { id: "compact", label: "紧凑扫描" },
+  { id: "serif", label: "长文衬线" }
+];
+
 function findFile(files: NoteFile[], path: string) {
   return files.find((file) => file.path === path);
 }
 
 function isFolderActive(folder: NoteFolder, currentPath: string) {
   return currentPath.startsWith(`${folder.path}/`);
+}
+
+function normalizeView(view: string, path: string): { view: ViewName; path: string } {
+  if (view === "notes" || view === "resume" || view === "todo" || view === "home") {
+    return { view, path };
+  }
+  if (!view) {
+    return { view: "home", path: "" };
+  }
+  return { view: "notes", path };
 }
 
 function searchTerms(query: string) {
@@ -250,12 +294,12 @@ function LoginScreen({
     <main className="auth-page">
       <section className="auth-panel">
         <div className="auth-mark">
-          <BookOpen size={28} />
+          <ShieldCheck size={28} />
         </div>
         <p className="auth-eyebrow">Valentin 的个人网站</p>
         <h1>访问受保护内容</h1>
         <p className="auth-copy">
-          Codex Desktop 使用技巧是站内组件，需要使用本地配置中的账号登录。
+          登录后进入个人工作台，选择文档、简历或 Todo 组件。
         </p>
 
         <form className="login-form" onSubmit={handleSubmit}>
@@ -288,18 +332,265 @@ function LoginScreen({
   );
 }
 
+function ComponentCard({
+  icon: Icon,
+  title,
+  meta,
+  body,
+  onOpen
+}: {
+  icon: typeof BookOpen;
+  title: string;
+  meta: string;
+  body: string;
+  onOpen: () => void;
+}) {
+  return (
+    <button className="component-card" onClick={onOpen}>
+      <span className="component-card-icon">
+        <Icon size={20} />
+      </span>
+      <span className="component-card-title">{title}</span>
+      <span className="component-card-meta">{meta}</span>
+      <span className="component-card-body">{body}</span>
+    </button>
+  );
+}
+
+function HomeView({
+  user,
+  index,
+  todoCount,
+  onOpen
+}: {
+  user: AuthUser;
+  index: NotesIndex | null;
+  todoCount: number;
+  onOpen: (view: ViewName) => void;
+}) {
+  const recentFiles = index?.files.filter((file) => !file.hidden).slice(0, 5) ?? [];
+
+  return (
+    <section className="home-view">
+      <div className="page-heading">
+        <p>Valentin 的个人网站</p>
+        <h1>{user.displayName} 的工作台</h1>
+      </div>
+
+      <div className="component-grid">
+        <ComponentCard
+          icon={BookOpen}
+          title="Codex Desktop 使用技巧"
+          meta={`${index?.count ?? 0} 篇文档`}
+          body="阅读、搜索、按目录访问 Markdown 知识库。"
+          onOpen={() => onOpen("notes")}
+        />
+        <ComponentCard
+          icon={BriefcaseBusiness}
+          title="个人简历"
+          meta="Profile"
+          body="个人简介、技能栈、项目经历和联系方式。"
+          onOpen={() => onOpen("resume")}
+        />
+        <ComponentCard
+          icon={ListTodo}
+          title="Todo List"
+          meta={`${todoCount} 个待办`}
+          body="记录当前浏览器中的个人待办事项。"
+          onOpen={() => onOpen("todo")}
+        />
+      </div>
+
+      <div className="home-section">
+        <div className="section-heading">
+          <h2>最近文档</h2>
+          <span>Codex Desktop</span>
+        </div>
+        <div className="quick-list">
+          {recentFiles.map((file) => (
+            <button key={file.path} onClick={() => (window.location.hash = routeFor(file.path))}>
+              <FileText size={16} />
+              <span>{file.title}</span>
+              <small>{file.path}</small>
+            </button>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function ResumeView() {
+  return (
+    <section className="resume-view">
+      <div className="page-heading">
+        <p>Resume</p>
+        <h1>Valentin</h1>
+      </div>
+
+      <div className="resume-layout">
+        <section className="resume-main">
+          <h2>个人简介</h2>
+          <p>
+            关注 AI 工具、自动化工作流、前端体验和知识管理。擅长把复杂信息整理成结构清晰、可持续维护的系统。
+          </p>
+
+          <h2>项目经历</h2>
+          <div className="timeline">
+            <div>
+              <strong>Valentin 的个人网站</strong>
+              <span>受保护的个人知识站点，包含 Markdown 阅读器、简历展示和 Todo 管理。</span>
+            </div>
+            <div>
+              <strong>Codex Desktop 使用技巧文档</strong>
+              <span>系统整理 Codex Desktop 设置、计费、MCP、Skills、插件和实操流程。</span>
+            </div>
+            <div>
+              <strong>Markdown 知识库阅读器</strong>
+              <span>支持嵌套目录、全文搜索、相对资源、受保护访问和管理员编辑。</span>
+            </div>
+          </div>
+        </section>
+
+        <aside className="resume-side">
+          <h2>技能方向</h2>
+          <div className="tag-list">
+            <span>React</span>
+            <span>TypeScript</span>
+            <span>Vite</span>
+            <span>Markdown</span>
+            <span>AI Workflow</span>
+            <span>Vercel</span>
+          </div>
+
+          <h2>联系方式</h2>
+          <p>GitHub: valentine-zjy</p>
+          <p>Website: valentin-site1.vercel.app</p>
+        </aside>
+      </div>
+    </section>
+  );
+}
+
+function TodoView({
+  user
+}: {
+  user: AuthUser;
+}) {
+  const storageKey = `valentin.todos.${user.username}`;
+  const [items, setItems] = useState<TodoItem[]>(() => {
+    try {
+      return JSON.parse(localStorage.getItem(storageKey) ?? "[]") as TodoItem[];
+    } catch {
+      return [];
+    }
+  });
+  const [text, setText] = useState("");
+
+  useEffect(() => {
+    localStorage.setItem(storageKey, JSON.stringify(items));
+  }, [items, storageKey]);
+
+  function addTodo(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    const value = text.trim();
+    if (!value) {
+      return;
+    }
+    setItems((current) => [
+      {
+        id: crypto.randomUUID(),
+        text: value,
+        done: false,
+        createdAt: Date.now()
+      },
+      ...current
+    ]);
+    setText("");
+  }
+
+  const openCount = items.filter((item) => !item.done).length;
+  const doneCount = items.length - openCount;
+
+  return (
+    <section className="todo-view">
+      <div className="page-heading">
+        <p>Todo List</p>
+        <h1>今日事项</h1>
+      </div>
+
+      <form className="todo-form" onSubmit={addTodo}>
+        <input
+          value={text}
+          onChange={(event) => setText(event.target.value)}
+          placeholder="新增待办事项"
+        />
+        <button className="primary-button">添加</button>
+      </form>
+
+      <div className="todo-stats">
+        <span>{openCount} 个进行中</span>
+        <span>{doneCount} 个已完成</span>
+      </div>
+
+      <div className="todo-list">
+        {items.length === 0 ? (
+          <div className="empty-state">暂无待办事项</div>
+        ) : (
+          items.map((item) => (
+            <div className={`todo-item ${item.done ? "done" : ""}`} key={item.id}>
+              <button
+                className="todo-check"
+                onClick={() =>
+                  setItems((current) =>
+                    current.map((entry) =>
+                      entry.id === item.id ? { ...entry, done: !entry.done } : entry
+                    )
+                  )
+                }
+                aria-label={item.done ? "标记为未完成" : "标记为已完成"}
+              >
+                {item.done ? <Check size={16} /> : <Circle size={16} />}
+              </button>
+              <span>{item.text}</span>
+              <button
+                className="icon-button"
+                onClick={() =>
+                  setItems((current) => current.filter((entry) => entry.id !== item.id))
+                }
+                aria-label="删除待办"
+              >
+                <Trash2 size={16} />
+              </button>
+            </div>
+          ))
+        )}
+      </div>
+    </section>
+  );
+}
+
 function App() {
+  const [siteTheme, setSiteTheme] = useState<SiteTheme>(() => {
+    return (localStorage.getItem("valentin.siteTheme") as SiteTheme | null) ?? "clean";
+  });
+  const [markdownTheme, setMarkdownTheme] = useState<MarkdownTheme>(() => {
+    return (
+      (localStorage.getItem("valentin.markdownTheme") as MarkdownTheme | null) ??
+      "classic"
+    );
+  });
+  const [view, setView] = useState<ViewName>("home");
   const [user, setUser] = useState<AuthUser | null>(null);
   const [authChecking, setAuthChecking] = useState(true);
   const [index, setIndex] = useState<NotesIndex | null>(null);
   const [activePath, setActivePath] = useState("");
   const [routeAnchor, setRouteAnchor] = useState("");
   const [markdownSource, setMarkdownSource] = useState("");
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [query, setQuery] = useState("");
   const [expanded, setExpanded] = useState<Set<string>>(new Set());
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [editing, setEditing] = useState(false);
   const [draft, setDraft] = useState("");
   const [saving, setSaving] = useState(false);
@@ -336,31 +627,72 @@ function App() {
     });
   }, [searchableFiles, currentSearchTerms]);
 
-  async function loadIndex(preferredPath?: string) {
+  const todoCount = useMemo(() => {
+    if (!user) {
+      return 0;
+    }
+    try {
+      const items = JSON.parse(
+        localStorage.getItem(`valentin.todos.${user.username}`) ?? "[]"
+      ) as TodoItem[];
+      return items.filter((item) => !item.done).length;
+    } catch {
+      return 0;
+    }
+  }, [user, view]);
+
+  useEffect(() => {
+    document.documentElement.dataset.siteTheme = siteTheme;
+    localStorage.setItem("valentin.siteTheme", siteTheme);
+  }, [siteTheme]);
+
+  useEffect(() => {
+    localStorage.setItem("valentin.markdownTheme", markdownTheme);
+  }, [markdownTheme]);
+
+  async function refreshIndex() {
     const payload = await requestJson<NotesIndexPayload>("/api/notes-index");
     setIndex(payload);
     if (payload.user) {
       setUser(payload.user);
     }
+    return payload;
+  }
 
-    const route = parseRoute();
-    const requestedPath = preferredPath ?? route.path;
+  async function openNotesRoute(path = "", anchor = "") {
+    const payload = await refreshIndex();
     const nextPath =
-      requestedPath && payload.files.some((file) => file.path === requestedPath)
-        ? requestedPath
+      path && payload.files.some((file) => file.path === path)
+        ? path
         : payload.defaultPath;
-
     setActivePath(nextPath);
-    setRouteAnchor(route.anchor);
-
-    if (nextPath && route.path !== nextPath) {
+    setRouteAnchor(anchor);
+    setView("notes");
+    if (!path || path !== nextPath) {
       history.replaceState(null, "", routeFor(nextPath));
     }
   }
 
+  function applyCurrentRoute() {
+    const parsed = parseRoute();
+    const normalized = normalizeView(parsed.view, parsed.path);
+    setView(normalized.view);
+    setSidebarOpen(false);
+    if (normalized.view === "notes") {
+      openNotesRoute(normalized.path, parsed.anchor).catch((error) => {
+        setAppError(error instanceof Error ? error.message : "无法加载文档索引");
+      });
+    } else if (user) {
+      refreshIndex().catch(() => null);
+    }
+  }
+
+  function navigate(viewName: ViewName) {
+    window.location.hash = pageRoute(viewName);
+  }
+
   function openNote(path: string, hash = "") {
     window.location.hash = routeFor(path, hash);
-    setSidebarOpen(false);
   }
 
   async function logout() {
@@ -371,6 +703,8 @@ function App() {
     setActivePath("");
     setEditing(false);
     setNotice("");
+    setView("home");
+    history.replaceState(null, "", "#/");
   }
 
   async function saveDraft() {
@@ -389,7 +723,7 @@ function App() {
       setMarkdownSource(draft);
       setEditing(false);
       setNotice("已保存到服务器文件");
-      await loadIndex(activePath);
+      await openNotesRoute(activePath);
     } catch (saveError) {
       setNotice(saveError instanceof Error ? saveError.message : "保存失败");
     } finally {
@@ -441,25 +775,13 @@ function App() {
       return;
     }
 
-    setAppError("");
-    loadIndex().catch((error) => {
-      setAppError(error instanceof Error ? error.message : "无法加载文档索引");
-    });
+    applyCurrentRoute();
+    window.addEventListener("hashchange", applyCurrentRoute);
+    return () => window.removeEventListener("hashchange", applyCurrentRoute);
   }, [user?.username]);
 
   useEffect(() => {
-    function handleHashChange() {
-      const route = parseRoute();
-      setActivePath(route.path || index?.defaultPath || "");
-      setRouteAnchor(route.anchor);
-    }
-
-    window.addEventListener("hashchange", handleHashChange);
-    return () => window.removeEventListener("hashchange", handleHashChange);
-  }, [index]);
-
-  useEffect(() => {
-    if (!activePath || !user) {
+    if (view !== "notes" || !activePath || !user) {
       return;
     }
 
@@ -484,7 +806,7 @@ function App() {
         setMarkdownSource(`# 文档加载失败\n\n${String(error)}`);
         setLoading(false);
       });
-  }, [activePath, user]);
+  }, [activePath, user, view]);
 
   useEffect(() => {
     if (!routeAnchor) {
@@ -541,11 +863,11 @@ function App() {
   }
 
   return (
-    <div className={`app-shell ${sidebarCollapsed ? "sidebar-collapsed" : ""}`}>
-      <aside className={`sidebar ${sidebarOpen ? "open" : ""}`}>
+    <div className={`site-shell markdown-theme-${markdownTheme}`}>
+      <aside className={`site-sidebar ${sidebarOpen ? "open" : ""}`}>
         <div className="brand">
           <div className="brand-mark">
-            <BookOpen size={22} />
+            <LayoutDashboard size={22} />
           </div>
           <div>
             <strong>Valentin</strong>
@@ -554,27 +876,101 @@ function App() {
           <button
             className="icon-button mobile-only"
             onClick={() => setSidebarOpen(false)}
-            aria-label="关闭目录"
+            aria-label="关闭导航"
           >
             <X size={18} />
           </button>
         </div>
 
-        <div className="component-label">Codex Desktop 使用技巧</div>
+        <nav className="site-nav" aria-label="站点组件">
+          <button className={view === "home" ? "active" : ""} onClick={() => navigate("home")}>
+            <Home size={17} />
+            <span>首页</span>
+          </button>
+          <button className={view === "notes" ? "active" : ""} onClick={() => navigate("notes")}>
+            <BookOpen size={17} />
+            <span>Codex 文档</span>
+          </button>
+          <button className={view === "resume" ? "active" : ""} onClick={() => navigate("resume")}>
+            <BriefcaseBusiness size={17} />
+            <span>个人简历</span>
+          </button>
+          <button className={view === "todo" ? "active" : ""} onClick={() => navigate("todo")}>
+            <ListTodo size={17} />
+            <span>Todo List</span>
+          </button>
+        </nav>
 
-        <label className="search-box">
-          <Search size={16} />
-          <input
-            value={query}
-            onChange={(event) => setQuery(event.target.value)}
-            placeholder="搜索全文、标题或路径"
-          />
-        </label>
-
-        <div className="sidebar-meta">
-          <span>{index?.count ?? 0} 篇文档</span>
-          <span>{user.canEdit ? "管理员可编辑" : "只读浏览"}</span>
+        <div className="preference-panel">
+          <label>
+            <Palette size={15} />
+            <span>网站风格</span>
+            <select
+              value={siteTheme}
+              onChange={(event) => setSiteTheme(event.target.value as SiteTheme)}
+            >
+              {siteThemes.map((theme) => (
+                <option key={theme.id} value={theme.id}>
+                  {theme.label}
+                </option>
+              ))}
+            </select>
+          </label>
+          <label>
+            <FileText size={15} />
+            <span>文档风格</span>
+            <select
+              value={markdownTheme}
+              onChange={(event) => setMarkdownTheme(event.target.value as MarkdownTheme)}
+            >
+              {markdownThemes.map((theme) => (
+                <option key={theme.id} value={theme.id}>
+                  {theme.label}
+                </option>
+              ))}
+            </select>
+          </label>
         </div>
+
+        {view === "notes" ? (
+          <div className="notes-explorer">
+            <label className="search-box">
+              <Search size={16} />
+              <input
+                value={query}
+                onChange={(event) => setQuery(event.target.value)}
+                placeholder="搜索全文、标题或路径"
+              />
+            </label>
+
+            <div className="sidebar-meta">
+              <span>{index?.count ?? 0} 篇文档</span>
+              <span>{user.canEdit ? "管理员可编辑" : "只读浏览"}</span>
+            </div>
+
+            <div className="tree-scroll">
+              {appError ? <div className="empty-state">{appError}</div> : null}
+              {query.trim() ? (
+                <SearchResults
+                  results={searchResults}
+                  terms={currentSearchTerms}
+                  onOpen={openNote}
+                />
+              ) : (
+                index?.tree.map((node) => (
+                  <TreeNode
+                    key={node.path}
+                    node={node}
+                    activePath={activePath}
+                    expanded={expanded}
+                    onToggle={toggleFolder}
+                    onOpen={openNote}
+                  />
+                ))
+              )}
+            </div>
+          </div>
+        ) : null}
 
         <div className="user-panel">
           <div className="user-avatar">
@@ -590,28 +986,6 @@ function App() {
             <LogOut size={16} />
           </button>
         </div>
-
-        <div className="tree-scroll">
-          {appError ? <div className="empty-state">{appError}</div> : null}
-          {query.trim() ? (
-            <SearchResults
-              results={searchResults}
-              terms={currentSearchTerms}
-              onOpen={openNote}
-            />
-          ) : (
-            index?.tree.map((node) => (
-              <TreeNode
-                key={node.path}
-                node={node}
-                activePath={activePath}
-                expanded={expanded}
-                onToggle={toggleFolder}
-                onOpen={openNote}
-              />
-            ))
-          )}
-        </div>
       </aside>
 
       <div
@@ -619,99 +993,120 @@ function App() {
         onClick={() => setSidebarOpen(false)}
       />
 
-      <main className="reader">
-        <header className="reader-header">
+      <main className="site-main">
+        <header className="site-header">
           <button
             className="icon-button mobile-only"
             onClick={() => setSidebarOpen(true)}
-            aria-label="打开目录"
+            aria-label="打开导航"
           >
             <Menu size={19} />
           </button>
-          <button
-            className="icon-button desktop-only"
-            onClick={() => setSidebarCollapsed((collapsed) => !collapsed)}
-            aria-label="折叠目录"
-          >
-            <PanelLeftClose size={18} />
-          </button>
           <div className="reader-title">
-            <span>{activeFile?.path ?? "正在加载"}</span>
-            <strong>{activeFile?.title ?? "Codex Desktop 使用技巧"}</strong>
+            <span>
+              {view === "home"
+                ? "Dashboard"
+                : view === "notes"
+                  ? activeFile?.path ?? "Codex 文档"
+                  : view === "resume"
+                    ? "Resume"
+                    : "Todo List"}
+            </span>
+            <strong>
+              {view === "home"
+                ? "首页"
+                : view === "notes"
+                  ? activeFile?.title ?? "Codex Desktop 使用技巧"
+                  : view === "resume"
+                    ? "个人简历"
+                    : "Todo List"}
+            </strong>
           </div>
-          <div className="reader-actions">
-            {user.canEdit ? (
-              editing ? (
-                <>
-                  <button className="toolbar-button" onClick={() => setEditing(false)}>
-                    <Eye size={15} />
-                    <span>预览</span>
+          {view === "notes" ? (
+            <div className="reader-actions">
+              {user.canEdit ? (
+                editing ? (
+                  <>
+                    <button className="toolbar-button" onClick={() => setEditing(false)}>
+                      <Eye size={15} />
+                      <span>预览</span>
+                    </button>
+                    <button
+                      className="toolbar-button primary"
+                      onClick={saveDraft}
+                      disabled={saving}
+                    >
+                      <Save size={15} />
+                      <span>{saving ? "保存中" : "保存"}</span>
+                    </button>
+                  </>
+                ) : (
+                  <button className="toolbar-button" onClick={startEditing}>
+                    <Edit3 size={15} />
+                    <span>编辑</span>
                   </button>
-                  <button
-                    className="toolbar-button primary"
-                    onClick={saveDraft}
-                    disabled={saving}
-                  >
-                    <Save size={15} />
-                    <span>{saving ? "保存中" : "保存"}</span>
-                  </button>
-                </>
-              ) : (
-                <button className="toolbar-button" onClick={startEditing}>
-                  <Edit3 size={15} />
-                  <span>编辑</span>
-                </button>
-              )
-            ) : null}
-            <button className="toolbar-button" onClick={copyPath}>
-              <Copy size={15} />
-              <span>复制路径</span>
-            </button>
-            {activeFile ? (
-              <a
-                className="toolbar-button"
-                href={noteUrl(activeFile.path)}
-                target="_blank"
-                rel="noreferrer"
-              >
-                <ExternalLink size={15} />
-                <span>原文</span>
-              </a>
-            ) : null}
-          </div>
+                )
+              ) : null}
+              <button className="toolbar-button" onClick={copyPath}>
+                <Copy size={15} />
+                <span>复制路径</span>
+              </button>
+              {activeFile ? (
+                <a
+                  className="toolbar-button"
+                  href={noteUrl(activeFile.path)}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <ExternalLink size={15} />
+                  <span>原文</span>
+                </a>
+              ) : null}
+            </div>
+          ) : null}
         </header>
 
-        <div className="reader-layout">
-          <article className="document-panel" ref={contentRef}>
-            <div className="document-meta">
-              <span>{activeFile ? formatBytes(activeFile.size) : "..."}</span>
-              <span>{updatedText}</span>
-              <span>{user.canEdit ? "服务器文件可编辑" : "服务器文件只读"}</span>
-            </div>
-            {notice ? <div className="notice-line">{notice}</div> : null}
-            {loading ? (
-              <div className="loading-state">正在加载 Markdown...</div>
-            ) : editing ? (
-              <textarea
-                className="markdown-editor"
-                value={draft}
-                onChange={(event) => setDraft(event.target.value)}
-                spellCheck={false}
-              />
-            ) : (
-              <div
-                className="markdown-body"
-                dangerouslySetInnerHTML={{ __html: rendered.html }}
-                onClick={handleContentClick}
-              />
-            )}
-          </article>
+        {view === "home" ? (
+          <HomeView user={user} index={index} todoCount={todoCount} onOpen={navigate} />
+        ) : null}
 
-          <aside className="toc-panel">
-            <div className="toc-title">本页目录</div>
-            <TableOfContents headings={rendered.headings} activePath={activePath} />
-          </aside>
-        </div>
+        {view === "resume" ? <ResumeView /> : null}
+
+        {view === "todo" ? <TodoView user={user} /> : null}
+
+        {view === "notes" ? (
+          <div className="reader-layout">
+            <article className="document-panel" ref={contentRef}>
+              <div className="document-meta">
+                <span>{activeFile ? formatBytes(activeFile.size) : "..."}</span>
+                <span>{updatedText}</span>
+                <span>{user.canEdit ? "服务器文件可编辑" : "服务器文件只读"}</span>
+              </div>
+              {notice ? <div className="notice-line">{notice}</div> : null}
+              {loading ? (
+                <div className="loading-state">正在加载 Markdown...</div>
+              ) : editing ? (
+                <textarea
+                  className="markdown-editor"
+                  value={draft}
+                  onChange={(event) => setDraft(event.target.value)}
+                  spellCheck={false}
+                />
+              ) : (
+                <div
+                  className="markdown-body"
+                  dangerouslySetInnerHTML={{ __html: rendered.html }}
+                  onClick={handleContentClick}
+                />
+              )}
+            </article>
+
+            <aside className="toc-panel">
+              <div className="toc-title">本页目录</div>
+              <TableOfContents headings={rendered.headings} activePath={activePath} />
+            </aside>
+          </div>
+        ) : null}
       </main>
     </div>
   );
