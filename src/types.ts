@@ -30,6 +30,16 @@ export type NotesIndex = {
   files: NoteFile[];
 };
 
+export type UserRole = "admin" | "viewer";
+
+export type AuthUser = {
+  username: string;
+  displayName: string;
+  role: UserRole;
+  priority: number;
+  canEdit: boolean;
+};
+
 export type Heading = {
   id: string;
   text: string;

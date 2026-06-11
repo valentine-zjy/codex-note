@@ -6,8 +6,8 @@ const defaultSource = path.resolve(rootDir, "..", "codex使用技巧");
 const sourceDir = path.resolve(
   process.argv[2] ?? process.env.NOTES_SOURCE ?? defaultSource
 );
-const targetDir = path.resolve(rootDir, "public", "notes");
-const publicDir = path.resolve(rootDir, "public");
+const targetDir = path.resolve(rootDir, "content", "codex-desktop-guide");
+const contentDir = path.resolve(rootDir, "content");
 
 const ignoredNames = new Set([".git", "node_modules", "dist", ".vercel"]);
 
@@ -50,7 +50,7 @@ async function main() {
     throw new Error(`Source directory does not exist: ${sourceDir}`);
   }
 
-  assertInside(publicDir, targetDir, "Target directory");
+  assertInside(contentDir, targetDir, "Target directory");
 
   if (path.normalize(sourceDir) === path.normalize(targetDir)) {
     throw new Error("Source and target directories must be different");

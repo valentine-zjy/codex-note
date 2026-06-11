@@ -3,8 +3,7 @@ import MarkdownIt from "markdown-it";
 import type Token from "markdown-it/lib/token.mjs";
 import type { Heading } from "./types";
 import {
-  encodePath,
-  noteUrl,
+  assetUrl,
   resolveRelativePath,
   routeFor
 } from "./path-utils";
@@ -34,7 +33,7 @@ markdown.renderer.rules.image = (tokens, idx, options, env, self) => {
   const resolved = resolveRelativePath(src, currentPath);
 
   if (resolved) {
-    attrSet(token, "src", `/notes/${encodePath(resolved.path)}${resolved.hash}`);
+    attrSet(token, "src", `${assetUrl(resolved.path)}${resolved.hash}`);
   }
 
   attrSet(token, "loading", "lazy");
@@ -58,7 +57,7 @@ markdown.renderer.rules.link_open = (tokens, idx, options, env, self) => {
     attrSet(token, "target", "_blank");
     attrSet(token, "rel", "noreferrer");
   } else if (resolved && !resolved.path.toLowerCase().endsWith(".md")) {
-    attrSet(token, "href", noteUrl(resolved.path));
+    attrSet(token, "href", assetUrl(resolved.path));
     attrSet(token, "target", "_blank");
     attrSet(token, "rel", "noreferrer");
   }

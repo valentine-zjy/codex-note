@@ -47,7 +47,11 @@ export function resolveRelativePath(target: string, currentPath: string) {
 }
 
 export function noteUrl(path: string) {
-  return `/notes/${encodePath(path)}`;
+  return `/api/note?path=${encodeURIComponent(path)}`;
+}
+
+export function assetUrl(path: string) {
+  return `/api/asset?path=${encodeURIComponent(path)}`;
 }
 
 export function routeFor(path: string, hash = "") {

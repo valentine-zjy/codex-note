@@ -1,0 +1,19 @@
+{
+  "sessionSecret": "replace-this-with-a-long-random-secret",
+  "users": [
+    {
+      "username": "admin",
+      "password": "change-admin-password",
+      "displayName": "Valentin Admin",
+      "role": "admin",
+      "priority": 100
+    },
+    {
+      "username": "reader",
+      "password": "change-reader-password",
+      "displayName": "Reader",
+      "role": "viewer",
+      "priority": 10
+    }
+  ]
+}

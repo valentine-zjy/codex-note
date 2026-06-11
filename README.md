@@ -1,44 +1,87 @@
-# Codex Notes
+# Valentin 的个人网站
 
-一个面向 Codex Desktop 使用技巧文档的在线 Markdown 阅读器。
+这是一个 Vite + React 项目。当前站点包含一个受保护的组件：**Codex Desktop 使用技巧** Markdown 阅读器。
 
 ## 功能
 
-- 递归识别 `public/notes` 下所有 `.md` 文件。
-- 按文件夹层级生成左侧目录树。
-- 支持中文路径、嵌套文件夹、相对图片和相对 Markdown 链接。
-- 支持标题 / 路径 / 摘要搜索。
-- 支持右侧当前文档目录。
-- 只读浏览，不在网页中编辑文件。
-- 适配桌面端和移动端。
+- 访问网站前必须登录。
+- 用户名和密码来自本地配置文件，不开放注册。
+- 支持角色权限：`admin` 可以在线编辑 Markdown，`viewer` 只能阅读。
+- Markdown 文档放在 `content/codex-desktop-guide`，不再放在 `public` 目录中。
+- 支持多层文件夹、全文搜索、右侧目录、相对图片、相对 Markdown 链接。
+- 图片和附件通过 `/api/asset` 返回，需要登录 cookie。
 
 ## 本地开发
 
 ```bash
 npm install
-npm run dev
+npm run dev -- --port 5174
 ```
 
-默认访问：
+访问：
 
 ```text
-http://localhost:5173
+http://localhost:5174
 ```
 
-如果端口被占用，Vite 会提示新的端口。
+本地测试账号写在 `config/users.local.json` 中。这个文件已被 `.gitignore` 忽略，不会提交到 GitHub。
+
+默认测试账号：
+
+```text
+管理员：admin / Valentin@admin123
+查看用户：reader / Valentin@reader123
+```
+
+上线前请修改密码和 `sessionSecret`。
+
+## 用户配置
+
+推荐本地使用：
+
+```text
+config/users.local.json
+```
+
+格式参考：
+
+```json
+{
+  "sessionSecret": "replace-this-with-a-long-random-secret",
+  "users": [
+    {
+      "username": "admin",
+      "password": "change-admin-password",
+      "displayName": "Valentin Admin",
+      "role": "admin",
+      "priority": 100
+    },
+    {
+      "username": "reader",
+      "password": "change-reader-password",
+      "displayName": "Reader",
+      "role": "viewer",
+      "priority": 10
+    }
+  ]
+}
+```
+
+生产环境不要把真实密码提交到公开仓库。部署到 Vercel 时，建议配置环境变量：
+
+```text
+VALENTIN_USERS_JSON
+VALENTIN_SESSION_SECRET
+```
+
+`VALENTIN_USERS_JSON` 的内容与上面的 JSON 结构一致。
 
 ## 更新 Markdown 内容
 
-所有文档都放在：
+网页读取的内容目录：
 
 ```text
-public/notes
-```
-
-新增、删除或修改 Markdown 文件后，重新执行：
-
-```bash
-npm run generate
+content/codex-desktop-guide
 ```
 
 如果你继续在原始目录维护文档，可以同步到网页项目：
@@ -47,7 +90,7 @@ npm run generate
 npm run sync-notes
 ```
 
-默认同步来源是项目同级目录：
+默认同步来源：
 
 ```text
 ../codex使用技巧
@@ -59,37 +102,55 @@ npm run sync-notes
 npm run sync-notes -- "C:\Users\diva\Valentin\codex使用技巧"
 ```
 
-构建时也会自动执行索引生成：
+校验索引与构建：
 
 ```bash
+npm run generate
 npm run build
 ```
 
-部署到 Vercel 后，内容更新方式是修改仓库里的 Markdown 文件并重新部署。网页本身不提供编辑入口。
+## 管理员编辑
+
+管理员登录后，文档右上角会出现“编辑”按钮，可以在线修改当前 Markdown 文件并保存。
+
+注意：Vercel Serverless 运行时文件系统通常不可持久写入。也就是说：
+
+- 本地开发环境可以直接保存到服务器文件。
+- 普通可写 Node 服务器可以直接保存到服务器文件。
+- Vercel 部署后，读取没有问题，但在线保存通常不会持久生效。
+
+如果希望在 Vercel 上也能持久编辑，需要后续接入 GitHub API、数据库或对象存储。
 
 ## Vercel 部署
 
-项目使用 Vite，已包含 `vercel.json`：
+项目已经包含 `vercel.json`：
 
 - Framework Preset: `vite`
 - Build Command: `npm run build`
 - Output Directory: `dist`
+- API Functions: `api/*.mjs`
+- 受保护内容通过 `includeFiles` 打包 `content/**`
 
-Vercel 官方文档说明，Vite 项目会构建为静态资源并输出到 `dist`，Vercel 只会部署 Output Directory 中的内容。
+部署前需要在 Vercel 中配置用户 JSON 和会话密钥环境变量。
 
 ## 项目结构
 
 ```text
-public/
-  notes/               Markdown 文档和图片资源
-  notes-index.json     构建脚本生成的文档索引
+api/                         Vercel API 入口
+config/
+  users.example.json          用户配置示例
+content/
+  codex-desktop-guide/        Markdown 文档和图片资源
+server/
+  notes-core.mjs              登录、权限、索引、读取、保存核心逻辑
 scripts/
-  generate-notes-index.mjs
+  generate-notes-index.mjs    校验内容索引
+  sync-notes.mjs              从原始文档目录同步
 src/
-  App.tsx
-  markdown.ts
-  path-utils.ts
-  styles.css
+  App.tsx                     前端应用
+  markdown.ts                 Markdown 渲染与相对路径处理
+  path-utils.ts               路由和 API 路径工具
+  styles.css                  页面样式
 ```
 
 ## 验证
@@ -98,4 +159,9 @@ src/
 npm run build
 ```
 
-当前构建会生成 23 篇 Markdown 文档索引。
+本地浏览器验证建议：
+
+1. 未登录访问首页，应看到登录页。
+2. 使用 `reader` 登录，只能阅读，没有编辑按钮。
+3. 使用 `admin` 登录，可以编辑并保存 Markdown。
+4. 直接访问旧路径 `/notes/...` 应不可用。
