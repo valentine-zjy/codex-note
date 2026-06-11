@@ -41,6 +41,24 @@ public/notes
 npm run generate
 ```
 
+如果你继续在原始目录维护文档，可以同步到网页项目：
+
+```bash
+npm run sync-notes
+```
+
+默认同步来源是项目同级目录：
+
+```text
+../codex使用技巧
+```
+
+也可以显式指定来源：
+
+```bash
+npm run sync-notes -- "C:\Users\diva\Valentin\codex使用技巧"
+```
+
 构建时也会自动执行索引生成：
 
 ```bash

@@ -215,7 +215,8 @@ button {
 }
 
 .search-result span,
-.search-result small {
+.search-result small,
+.search-result em {
   display: block;
 }
 
@@ -229,6 +230,14 @@ button {
   margin-top: 4px;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.search-result em {
+  color: var(--muted);
+  font-style: normal;
+  margin-top: 8px;
+  line-height: 1.45;
+  font-size: 12px;
 }
 
 .empty-state,

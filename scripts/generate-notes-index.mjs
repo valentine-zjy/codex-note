@@ -10,6 +10,9 @@ const collator = new Intl.Collator("zh-CN", {
   sensitivity: "base"
 });
 
+const hiddenDirectoryNames = new Set(["assets"]);
+const allFiles = [];
+
 function toPosix(filePath) {
   return filePath.split(path.sep).join("/");
 }
@@ -30,18 +33,23 @@ function readTitle(markdown, fileName) {
   return cleanTitleFromName(fileName);
 }
 
-function excerpt(markdown) {
+function toSearchText(markdown) {
   return markdown
-    .replace(/```[\s\S]*?```/g, " ")
+    .replace(/```/g, " ")
     .replace(/!\[[^\]]*]\([^)]*\)/g, " ")
     .replace(/\[[^\]]+]\([^)]*\)/g, " ")
-    .replace(/[#>*_`|~\-]+/g, " ")
+    .replace(/<[^>]+>/g, " ")
+    .replace(/[#>*_`|~\-:[\](){}.!?,，。；;、]+/g, " ")
     .replace(/\s+/g, " ")
     .trim()
-    .slice(0, 160);
+    .toLowerCase();
 }
 
-async function walkDirectory(dir, relativeDir = "") {
+function excerpt(markdown) {
+  return toSearchText(markdown).slice(0, 160);
+}
+
+async function walkDirectory(dir, relativeDir = "", hidden = false) {
   const entries = await fs.readdir(dir, { withFileTypes: true });
   const children = [];
 
@@ -54,8 +62,9 @@ async function walkDirectory(dir, relativeDir = "") {
     const relativePath = toPosix(path.join(relativeDir, entry.name));
 
     if (entry.isDirectory()) {
-      const folderChildren = await walkDirectory(absolute, relativePath);
-      if (folderChildren.length > 0) {
+      const nextHidden = hidden || hiddenDirectoryNames.has(entry.name);
+      const folderChildren = await walkDirectory(absolute, relativePath, nextHidden);
+      if (!nextHidden && folderChildren.length > 0) {
         children.push({
           type: "folder",
           name: entry.name,
@@ -73,15 +82,23 @@ async function walkDirectory(dir, relativeDir = "") {
 
     const content = await fs.readFile(absolute, "utf8");
     const stat = await fs.stat(absolute);
-    children.push({
+    const file = {
       type: "file",
       name: entry.name,
       title: readTitle(content, entry.name),
       path: relativePath,
       excerpt: excerpt(content),
+      searchText: toSearchText(`${readTitle(content, entry.name)} ${relativePath} ${content}`),
       size: stat.size,
-      updatedAt: stat.mtime.toISOString()
-    });
+      updatedAt: stat.mtime.toISOString(),
+      hidden
+    };
+
+    allFiles.push(file);
+
+    if (!hidden) {
+      children.push(file);
+    }
   }
 
   children.sort((a, b) => {
@@ -92,6 +109,15 @@ async function walkDirectory(dir, relativeDir = "") {
   });
 
   return children;
+}
+
+function latestTimestamp(files) {
+  const latest = files
+    .map((file) => new Date(file.updatedAt).getTime())
+    .filter(Number.isFinite)
+    .sort((a, b) => b - a)[0];
+
+  return new Date(latest || 0).toISOString();
 }
 
 function flattenFiles(nodes, result = []) {
@@ -108,15 +134,17 @@ function flattenFiles(nodes, result = []) {
 async function main() {
   await fs.access(notesDir);
   const tree = await walkDirectory(notesDir);
-  const files = flattenFiles(tree);
+  const visibleFiles = flattenFiles(tree);
+  const files = [...allFiles].sort((a, b) => collator.compare(a.path, b.path));
 
   const payload = {
-    generatedAt: new Date().toISOString(),
+    generatedAt: latestTimestamp(files),
     root: "notes",
-    count: files.length,
+    count: visibleFiles.length,
+    hiddenCount: files.length - visibleFiles.length,
     defaultPath:
-      files.find((file) => file.path.toLowerCase() === "readme.md")?.path ??
-      files[0]?.path ??
+      visibleFiles.find((file) => file.path.toLowerCase() === "readme.md")?.path ??
+      visibleFiles[0]?.path ??
       "",
     tree,
     files

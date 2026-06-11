@@ -4,8 +4,10 @@ export type NoteFile = {
   title: string;
   path: string;
   excerpt: string;
+  searchText: string;
   size: number;
   updatedAt: string;
+  hidden: boolean;
 };
 
 export type NoteFolder = {
@@ -22,6 +24,7 @@ export type NotesIndex = {
   generatedAt: string;
   root: string;
   count: number;
+  hiddenCount: number;
   defaultPath: string;
   tree: NoteNode[];
   files: NoteFile[];

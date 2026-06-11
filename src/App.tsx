@@ -21,18 +21,41 @@ import {
 } from "./path-utils";
 import type { Heading, NoteFile, NoteFolder, NoteNode, NotesIndex } from "./types";
 
-function flatten(nodes: NoteNode[]): NoteFile[] {
-  return nodes.flatMap((node) =>
-    node.type === "file" ? [node] : flatten(node.children)
-  );
-}
-
 function findFile(files: NoteFile[], path: string) {
   return files.find((file) => file.path === path);
 }
 
 function isFolderActive(folder: NoteFolder, currentPath: string) {
   return currentPath.startsWith(`${folder.path}/`);
+}
+
+function searchTerms(query: string) {
+  return query.trim().toLowerCase().split(/\s+/).filter(Boolean);
+}
+
+function searchSnippet(file: NoteFile, terms: string[]) {
+  if (terms.length === 0) {
+    return file.excerpt;
+  }
+
+  const hitIndex = terms.reduce((best, term) => {
+    const index = file.searchText.indexOf(term);
+    if (index === -1) {
+      return best;
+    }
+    return Math.min(best, index);
+  }, Number.POSITIVE_INFINITY);
+
+  if (!Number.isFinite(hitIndex)) {
+    return file.excerpt;
+  }
+
+  const start = Math.max(0, hitIndex - 42);
+  const end = Math.min(file.searchText.length, hitIndex + 118);
+  const prefix = start > 0 ? "... " : "";
+  const suffix = end < file.searchText.length ? " ..." : "";
+
+  return `${prefix}${file.searchText.slice(start, end)}${suffix}`;
 }
 
 function TreeNode({
@@ -95,9 +118,11 @@ function TreeNode({
 
 function SearchResults({
   results,
+  terms,
   onOpen
 }: {
   results: NoteFile[];
+  terms: string[];
   onOpen: (path: string) => void;
 }) {
   if (results.length === 0) {
@@ -114,6 +139,7 @@ function SearchResults({
         >
           <span>{file.title}</span>
           <small>{file.path}</small>
+          <em>{searchSnippet(file, terms)}</em>
         </button>
       ))}
     </div>
@@ -166,11 +192,16 @@ function App() {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const contentRef = useRef<HTMLDivElement | null>(null);
 
-  const files = useMemo(() => (index ? flatten(index.tree) : []), [index]);
-  const activeFile = useMemo(
-    () => findFile(files, activePath),
-    [files, activePath]
+  const allFiles = useMemo(() => index?.files ?? [], [index]);
+  const searchableFiles = useMemo(
+    () => allFiles.filter((file) => !file.hidden),
+    [allFiles]
   );
+  const activeFile = useMemo(
+    () => findFile(allFiles, activePath),
+    [allFiles, activePath]
+  );
+  const currentSearchTerms = useMemo(() => searchTerms(query), [query]);
 
   const rendered = useMemo(() => {
     if (!activePath) {
@@ -180,16 +211,15 @@ function App() {
   }, [activePath, markdownSource]);
 
   const searchResults = useMemo(() => {
-    const trimmed = query.trim().toLowerCase();
-    if (!trimmed) {
+    if (currentSearchTerms.length === 0) {
       return [];
     }
 
-    return files.filter((file) => {
-      const haystack = `${file.title} ${file.path} ${file.excerpt}`.toLowerCase();
-      return haystack.includes(trimmed);
+    return searchableFiles.filter((file) => {
+      const haystack = `${file.title} ${file.path} ${file.searchText}`.toLowerCase();
+      return currentSearchTerms.every((term) => haystack.includes(term));
     });
-  }, [files, query]);
+  }, [searchableFiles, currentSearchTerms]);
 
   function openNote(path: string, hash = "") {
     window.location.hash = routeFor(path, hash);
@@ -333,7 +363,7 @@ function App() {
           <input
             value={query}
             onChange={(event) => setQuery(event.target.value)}
-            placeholder="搜索标题、路径或摘要"
+            placeholder="搜索全文、标题或路径"
           />
         </label>
 
@@ -344,7 +374,11 @@ function App() {
 
         <div className="tree-scroll">
           {query.trim() ? (
-            <SearchResults results={searchResults} onOpen={openNote} />
+            <SearchResults
+              results={searchResults}
+              terms={currentSearchTerms}
+              onOpen={openNote}
+            />
           ) : (
             index?.tree.map((node) => (
               <TreeNode
