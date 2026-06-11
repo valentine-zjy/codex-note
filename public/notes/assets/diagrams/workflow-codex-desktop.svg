@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="760" viewBox="0 0 1280 760" role="img" aria-label="diagrams/workflow-codex-desktop.svg">
+<defs>
+<filter id="shadow" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="18" stdDeviation="18" flood-color="#0f172a" flood-opacity="0.16"/></filter>
+<style><![CDATA[
+text{font-family:"Microsoft YaHei","Segoe UI",Arial,sans-serif;letter-spacing:0;}
+.title{font-size:30px;font-weight:700;fill:#172033}
+.subtitle{font-size:18px;fill:#64748b}
+.small{font-size:15px;fill:#64748b}
+.body{font-size:18px;fill:#172033}
+.label{font-size:16px;font-weight:700;fill:#172033}
+.callout{font-size:15px;fill:#172033}
+.badge{font-size:14px;font-weight:700;fill:#dc2626}
+.mono{font-family:Consolas,"Cascadia Mono",monospace;font-size:15px;fill:#334155}
+]]></style>
+</defs>
+<defs>
+       <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+         <path d="M 0 0 L 10 5 L 0 10 z" fill="#334155" />
+       </marker>
+     </defs>
+     <rect width="1280" height="760" fill="#f6f8fb" />
+     <text x="64" y="72" class="title">Codex Desktop 推荐工作流</text>
+     <text x="64" y="104" class="subtitle">从目标到验证，形成可审查的闭环</text>
+     <g filter="url(#shadow)">
+       <rect x="48" y="134" width="1184" height="570" rx="20" fill="#ffffff" stroke="#d8dee9" />
+       <path d="M 280 300 C 315 300, 315 300, 350 300" fill="none" stroke="#334155" stroke-width="2.5" marker-end="url(#arrow)"/>
+                  
+<path d="M 530 300 C 565 300, 565 300, 600 300" fill="none" stroke="#334155" stroke-width="2.5" marker-end="url(#arrow)"/>
+                  
+<path d="M 780 300 C 815 300, 815 300, 850 300" fill="none" stroke="#334155" stroke-width="2.5" marker-end="url(#arrow)"/>
+                  
+<path d="M 940 360 C 850 360, 850 500, 760 500" fill="none" stroke="#334155" stroke-width="2.5" marker-end="url(#arrow)"/>
+                  
+<path d="M 540 500 C 365 500, 365 360, 190 360" fill="none" stroke="#334155" stroke-width="2.5" marker-end="url(#arrow)"/>
+                  <text x="270" y="520" class="small">仍有问题则回到目标</text>
+       <rect x="100" y="240" width="180" height="120" rx="14" fill="#eaf1ff" stroke="#2563eb" stroke-width="2"/>
+              <text x="120" y="274" class="label">明确目标</text>
+              <text class="small"><tspan x="120" y="306">说明范围、限制和验收标准</tspan></text>
+<rect x="350" y="240" width="180" height="120" rx="14" fill="#f3ecff" stroke="#7c3aed" stroke-width="2"/>
+              <text x="370" y="274" class="label">读取上下文</text>
+              <text class="small"><tspan x="370" y="306">让 Codex 先读项目和规则</tspan></text>
+<rect x="600" y="240" width="180" height="120" rx="14" fill="#eaf8ef" stroke="#16a34a" stroke-width="2"/>
+              <text x="620" y="274" class="label">小步修改</text>
+              <text class="small"><tspan x="620" y="306">一次只解决一个清晰问题</tspan></text>
+<rect x="850" y="240" width="180" height="120" rx="14" fill="#fff2e8" stroke="#f97316" stroke-width="2"/>
+              <text x="870" y="274" class="label">运行验证</text>
+              <text class="small"><tspan x="870" y="306">测试、lint、构建或浏览器检查</tspan></text>
+<rect x="540" y="460" width="220" height="120" rx="14" fill="#eaf1ff" stroke="#2563eb" stroke-width="2"/>
+              <text x="560" y="494" class="label">审查与收尾</text>
+              <text class="small"><tspan x="560" y="526">看 diff，确认风险，提交或继续迭代</tspan></text>
+     </g>
+</svg>

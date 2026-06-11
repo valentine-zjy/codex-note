@@ -1,0 +1,464 @@
+{
+  "generatedAt": "2026-06-11T07:54:23.751Z",
+  "root": "notes",
+  "count": 23,
+  "defaultPath": "README.md",
+  "tree": [
+    {
+      "type": "folder",
+      "name": "专题-Codex桌面端设置与计费规则",
+      "title": "专题-Codex桌面端设置与计费规则",
+      "path": "专题-Codex桌面端设置与计费规则",
+      "children": [
+        {
+          "type": "folder",
+          "name": "assets",
+          "title": "assets",
+          "path": "专题-Codex桌面端设置与计费规则/assets",
+          "children": [
+            {
+              "type": "folder",
+              "name": "screenshots",
+              "title": "screenshots",
+              "path": "专题-Codex桌面端设置与计费规则/assets/screenshots",
+              "children": [
+                {
+                  "type": "file",
+                  "name": "SOURCES.md",
+                  "title": "截图来源说明",
+                  "path": "专题-Codex桌面端设置与计费规则/assets/screenshots/SOURCES.md",
+                  "excerpt": "截图来源说明 本目录中的截图均为真实截图，不是 AI 生成图。 截图分两类： settings/ ：从 OpenAI 官方开发者文档下载的 Codex 产品截图。 web/ ：使用本机 Microsoft Edge 的 headless 模式，对 OpenAI 官方公开网页进行截图。 资料核对日期：2026 06 11",
+                  "size": 4822,
+                  "updatedAt": "2026-06-11T04:33:36.689Z"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "file",
+          "name": "01-设置导航与推荐配置.md",
+          "title": "设置导航与推荐配置",
+          "path": "专题-Codex桌面端设置与计费规则/01-设置导航与推荐配置.md",
+          "excerpt": "设置导航与推荐配置 Codex Desktop 的 Settings 不是“偏好设置”这么简单，它决定了 Codex 如何打开文件、如何显示命令输出、如何申请权限、如何连接外部工具、如何管理浏览器权限、如何使用 Git、如何接入 MCP，以及如何和 CLI / IDE Extension 共享配置。 设置页总地图 设置",
+          "size": 6185,
+          "updatedAt": "2026-06-11T07:21:50.581Z"
+        },
+        {
+          "type": "file",
+          "name": "02-个人体验外观快捷键通知.md",
+          "title": "个人体验、外观、快捷键与通知",
+          "path": "专题-Codex桌面端设置与计费规则/02-个人体验外观快捷键通知.md",
+          "excerpt": "个人体验、外观、快捷键与通知 这一篇专讲不涉及代码安全边界的个人体验设置：General、Profile、Keyboard Shortcuts、Notifications、Appearance、Personalization、Context aware suggestions、Memories 和 Archived t",
+          "size": 6449,
+          "updatedAt": "2026-06-11T04:30:44.767Z"
+        },
+        {
+          "type": "file",
+          "name": "03-Agent配置权限沙箱网络与本地环境.md",
+          "title": "Agent 配置、权限、沙箱、网络与本地环境",
+          "path": "专题-Codex桌面端设置与计费规则/03-Agent配置权限沙箱网络与本地环境.md",
+          "excerpt": "Agent 配置、权限、沙箱、网络与本地环境 这一篇讲 Codex Desktop 中最影响安全、稳定性和成本的设置：Agent configuration、模型选择、权限、沙箱、网络、web search、 config.toml 、Local / Worktree / Cloud、Local environment",
+          "size": 6042,
+          "updatedAt": "2026-06-11T04:30:44.768Z"
+        },
+        {
+          "type": "file",
+          "name": "04-集成浏览器MCP插件Git自动化.md",
+          "title": "集成、浏览器、MCP、插件、Git 与自动化设置",
+          "path": "专题-Codex桌面端设置与计费规则/04-集成浏览器MCP插件Git自动化.md",
+          "excerpt": "集成、浏览器、MCP、插件、Git 与自动化设置 这一篇讲 Codex Desktop 如何连接外部工具，以及这些连接如何影响效率、安全和用量。 Integrations & MCP MCP 用来连接外部工具、私有上下文和动态数据。设置页可以启用推荐 server，也可以添加自定义 server。如果 server 需",
+          "size": 6862,
+          "updatedAt": "2026-06-11T07:28:12.351Z"
+        },
+        {
+          "type": "file",
+          "name": "05-计费规则总览与计划选择.md",
+          "title": "计费规则总览与计划选择",
+          "path": "专题-Codex桌面端设置与计费规则/05-计费规则总览与计划选择.md",
+          "excerpt": "计费规则总览与计划选择 本篇讲 Codex 的计划选择和计费入口。价格、额度和可用功能会变化，本文以 2026 06 11 核对到的官方资料为准。 先分清两套计费逻辑 Codex 有两种常见使用方式： 使用方式 计费逻辑 适合 使用 ChatGPT 账号登录 Codex 使用 ChatGPT 计划内 Codex 用量；",
+          "size": 6174,
+          "updatedAt": "2026-06-11T07:21:50.581Z"
+        },
+        {
+          "type": "file",
+          "name": "06-用量限制Credits与RateCard.md",
+          "title": "用量限制、Credits 与 Rate Card",
+          "path": "专题-Codex桌面端设置与计费规则/06-用量限制Credits与RateCard.md",
+          "excerpt": "用量限制、Credits 与 Rate Card 本篇讲 Codex 的 usage limits、credits、rate card、image generation、Fast mode 和用量查询。计费数字变化较快，所有数字以 2026 06 11 核对到的官方资料为准。 用量限制由什么决定 官方 pricing ",
+          "size": 7168,
+          "updatedAt": "2026-06-11T07:21:50.582Z"
+        },
+        {
+          "type": "file",
+          "name": "07-团队计费APIKey与管理员治理.md",
+          "title": "团队计费、API Key 与管理员治理",
+          "path": "专题-Codex桌面端设置与计费规则/07-团队计费APIKey与管理员治理.md",
+          "excerpt": "团队计费、API Key 与管理员治理 本篇面向 Business、Enterprise、Edu 和使用 API Key 的团队。重点是 workspace credits、Codex seats、automatic reload、spend controls、API Key 和管理员应该如何治理成本。 Busines",
+          "size": 6618,
+          "updatedAt": "2026-06-11T07:28:12.350Z"
+        },
+        {
+          "type": "file",
+          "name": "08-省额度技巧排障与检查清单.md",
+          "title": "省额度技巧、排障与检查清单",
+          "path": "专题-Codex桌面端设置与计费规则/08-省额度技巧排障与检查清单.md",
+          "excerpt": "省额度技巧、排障与检查清单 本篇把设置和计费结合起来，回答三个实际问题：为什么用量消耗很快、怎么让额度更耐用、管理员和个人如何定期检查。 省额度的核心原则 官方 pricing 页面给出的优化建议包括： 控制 prompt size。 移除不必要上下文。 减少 AGENTS.md 的体积，必要时用嵌套文件控制注入范围。",
+          "size": 7596,
+          "updatedAt": "2026-06-11T07:21:50.583Z"
+        },
+        {
+          "type": "file",
+          "name": "README.md",
+          "title": "Codex 桌面端设置与计费规则专题",
+          "path": "专题-Codex桌面端设置与计费规则/README.md",
+          "excerpt": "Codex 桌面端设置与计费规则专题 资料核对日期：2026 06 11 适用对象：使用 Codex Desktop 的个人用户、开发者、团队管理员、希望控制用量和成本的用户。 这组文档专门讲两件事： 1. Codex Desktop 设置怎么配 ：不只说明按钮在哪里，而是讲每个设置影响什么、推荐怎么选、什么场景要谨慎",
+          "size": 4448,
+          "updatedAt": "2026-06-11T07:21:50.580Z"
+        }
+      ]
+    },
+    {
+      "type": "folder",
+      "name": "assets",
+      "title": "assets",
+      "path": "assets",
+      "children": [
+        {
+          "type": "folder",
+          "name": "screenshots",
+          "title": "screenshots",
+          "path": "assets/screenshots",
+          "children": [
+            {
+              "type": "file",
+              "name": "SOURCES.md",
+              "title": "截图来源说明",
+              "path": "assets/screenshots/SOURCES.md",
+              "excerpt": "截图来源说明 这些操作截图来自 OpenAI 官方开发者文档中的真实 Codex 产品截图。为了避免暴露本机账号、项目路径、聊天内容和本地文件，未截取用户本机 Codex Desktop 界面。 真实界面可能会随 Codex 版本、账号权限、操作系统、主题和已安装插件变化。文档中的截图用于帮助读者识别功能位置和界面形态",
+              "size": 4912,
+              "updatedAt": "2026-06-11T04:11:19.946Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "01-快速入门.md",
+      "title": "快速入门",
+      "path": "01-快速入门.md",
+      "excerpt": "快速入门 本篇解决三个问题：如何打开项目、如何新建线程、如何在发送任务前选对模式和权限。刚开始使用 Codex Desktop 时，不要急着让它改代码，先让它读懂你的项目、工具链和边界。 适合场景 第一次在 Codex Desktop 中打开一个本地项目。 想让 Codex 解释代码、修改代码、生成文档或运行测试。 项",
+      "size": 6630,
+      "updatedAt": "2026-06-11T04:01:13.322Z"
+    },
+    {
+      "type": "file",
+      "name": "02-提示词与任务拆解.md",
+      "title": "提示词与任务拆解",
+      "path": "02-提示词与任务拆解.md",
+      "excerpt": "提示词与任务拆解 Codex 的输出质量很大程度取决于任务是否清晰。好提示词不是把话写得很长，而是把目标、上下文、限制和验收标准写清楚。 推荐结构 一个稳定的 Codex 提示词通常包含 6 个部分： 部分 作用 示例 背景 帮 Codex 定位项目和技术栈 “这是 React + Vite 项目，样式用 CSS Mo",
+      "size": 6829,
+      "updatedAt": "2026-06-11T04:01:13.325Z"
+    },
+    {
+      "type": "file",
+      "name": "03-项目上下文与AGENTS.md",
+      "title": "AGENTS.md",
+      "path": "03-项目上下文与AGENTS.md",
+      "excerpt": "项目上下文与 AGENTS.md AGENTS.md 是给 Codex 的长期项目说明。它适合放那些你不想每次重复说的内容：项目怎么构建、怎么测试、代码风格、审查重点、不能触碰的目录、发布注意事项。 什么时候需要 AGENTS.md 当你发现自己经常重复这些要求时，就应该写进 AGENTS.md ： “改完请运行 np",
+      "size": 6690,
+      "updatedAt": "2026-06-11T04:01:13.326Z"
+    },
+    {
+      "type": "file",
+      "name": "04-代码修改测试与审查.md",
+      "title": "代码修改测试与审查",
+      "path": "04-代码修改测试与审查.md",
+      "excerpt": "代码修改、测试与审查 Codex 能写代码，但你仍然需要把它的输出当作候选补丁来审查。可靠的工作流应该包含：明确范围、小步修改、运行验证、查看 diff、记录残留风险。 修改前：先收窄范围 在让 Codex 修改代码前，先说清楚： 允许改哪些文件或目录。 不允许改哪些文件或目录。 是否允许新增依赖。 是否需要新增测试。",
+      "size": 6819,
+      "updatedAt": "2026-06-11T04:01:13.327Z"
+    },
+    {
+      "type": "file",
+      "name": "05-Git与并行工作流.md",
+      "title": "Git与并行工作流",
+      "path": "05-Git与并行工作流.md",
+      "excerpt": "Git 与并行工作流 Codex Desktop 的一个核心价值是把线程、diff、Git 和 Worktree 放在同一个工作流里。你可以让 Codex 在本地目录直接工作，也可以让它在隔离的 Git worktree 中尝试方案。 Local 与 Worktree 的区别 模式 工作位置 适合场景 风险 Local",
+      "size": 6894,
+      "updatedAt": "2026-06-11T04:01:13.328Z"
+    },
+    {
+      "type": "file",
+      "name": "06-浏览器预览与前端调试.md",
+      "title": "浏览器预览与前端调试",
+      "path": "06-浏览器预览与前端调试.md",
+      "excerpt": "浏览器预览与前端调试 Codex Desktop 的 in app browser 适合你和 Codex 共同查看页面渲染结果：本地开发服务器、静态预览、无需登录的公开页面。它特别适合前端布局、视觉反馈和交互状态验证。 适合场景 预览 localhost 页面。 检查响应式布局、空状态、错误状态、加载状态。 用截图或标",
+      "size": 6836,
+      "updatedAt": "2026-06-11T04:01:13.330Z"
+    },
+    {
+      "type": "file",
+      "name": "07-Skills插件与MCP.md",
+      "title": "Skills插件与MCP",
+      "path": "07-Skills插件与MCP.md",
+      "excerpt": "Skills、插件与 MCP Codex Desktop 不只是一个聊天窗口。你可以用 Skills 固化工作流，用 Plugins 打包能力，用 MCP 连接外部工具和动态上下文。三者经常一起出现，但解决的问题不同。 一句话区分 能力 解决什么问题 典型例子 Skill 让 Codex 学会一套可复用工作流 生成 P",
+      "size": 8343,
+      "updatedAt": "2026-06-11T04:01:13.331Z"
+    },
+    {
+      "type": "file",
+      "name": "08-自动化与长期任务.md",
+      "title": "自动化与长期任务",
+      "path": "08-自动化与长期任务.md",
+      "excerpt": "自动化与长期任务 自动化适合把稳定、重复、范围清楚的任务交给 Codex 定期运行。它不是“让 Codex 自动做所有事”，而是把固定工作流变成可审查的后台任务。 适合自动化的任务 定期检查测试失败并总结原因。 每天查看依赖更新或安全公告。 定期生成项目状态摘要。 监控某个 PR、issue、部署或长时间运行的命令。 ",
+      "size": 6757,
+      "updatedAt": "2026-06-11T04:01:13.337Z"
+    },
+    {
+      "type": "file",
+      "name": "09-Windows桌面端技巧.md",
+      "title": "Windows桌面端技巧",
+      "path": "09-Windows桌面端技巧.md",
+      "excerpt": "Windows 桌面端技巧 Windows 版 Codex Desktop 可以在一个界面里处理项目、线程、worktree、Git、浏览器、插件和 Skills。Windows 用户最需要注意的是：项目到底在 PowerShell 原生环境还是 WSL2 环境中运行，工具链是否一致，Git 是否能被识别。 第一次配置",
+      "size": 7476,
+      "updatedAt": "2026-06-11T07:28:12.352Z"
+    },
+    {
+      "type": "file",
+      "name": "10-安全权限与常见问题.md",
+      "title": "安全权限与常见问题",
+      "path": "10-安全权限与常见问题.md",
+      "excerpt": "安全、权限与常见问题 Codex 能读取文件、运行命令、修改代码、连接工具。使用得越深入，越需要理解沙箱、批准、网络、外部工具和隐私边界。 两层安全模型 官方资料把安全控制分成两类： Sandbox mode ：技术上限制 Codex 能访问什么，例如能写哪些目录、是否能联网。 Approval policy ：决定哪",
+      "size": 8200,
+      "updatedAt": "2026-06-11T04:01:13.342Z"
+    },
+    {
+      "type": "file",
+      "name": "11-Codex桌面端设置详解.md",
+      "title": "Codex 桌面端设置详解",
+      "path": "11-Codex桌面端设置详解.md",
+      "excerpt": "Codex 桌面端设置详解 这篇是对整套文档的二轮补充。前 10 篇已经覆盖了入门、提示词、AGENTS.md、审查、Git、浏览器、Skills / Plugins / MCP、自动化、Windows 和安全，但对 Codex Desktop Settings 的系统介绍还不够完整。本篇专门补齐设置项、快捷入口和容易",
+      "size": 20792,
+      "updatedAt": "2026-06-11T07:28:12.352Z"
+    },
+    {
+      "type": "file",
+      "name": "README.md",
+      "title": "Codex Desktop 使用技巧",
+      "path": "README.md",
+      "excerpt": "Codex Desktop 使用技巧 资料核对日期：2026 06 11 适用范围：Codex Desktop，重点面向 Windows 用户，同时兼顾 Codex app、CLI、IDE extension 的通用工作流。 这套文档的目标不是简单罗列按钮，而是把 Codex Desktop 作为一个日常开发搭档来讲清",
+      "size": 7251,
+      "updatedAt": "2026-06-11T04:33:54.338Z"
+    }
+  ],
+  "files": [
+    {
+      "type": "file",
+      "name": "SOURCES.md",
+      "title": "截图来源说明",
+      "path": "专题-Codex桌面端设置与计费规则/assets/screenshots/SOURCES.md",
+      "excerpt": "截图来源说明 本目录中的截图均为真实截图，不是 AI 生成图。 截图分两类： settings/ ：从 OpenAI 官方开发者文档下载的 Codex 产品截图。 web/ ：使用本机 Microsoft Edge 的 headless 模式，对 OpenAI 官方公开网页进行截图。 资料核对日期：2026 06 11",
+      "size": 4822,
+      "updatedAt": "2026-06-11T04:33:36.689Z"
+    },
+    {
+      "type": "file",
+      "name": "01-设置导航与推荐配置.md",
+      "title": "设置导航与推荐配置",
+      "path": "专题-Codex桌面端设置与计费规则/01-设置导航与推荐配置.md",
+      "excerpt": "设置导航与推荐配置 Codex Desktop 的 Settings 不是“偏好设置”这么简单，它决定了 Codex 如何打开文件、如何显示命令输出、如何申请权限、如何连接外部工具、如何管理浏览器权限、如何使用 Git、如何接入 MCP，以及如何和 CLI / IDE Extension 共享配置。 设置页总地图 设置",
+      "size": 6185,
+      "updatedAt": "2026-06-11T07:21:50.581Z"
+    },
+    {
+      "type": "file",
+      "name": "02-个人体验外观快捷键通知.md",
+      "title": "个人体验、外观、快捷键与通知",
+      "path": "专题-Codex桌面端设置与计费规则/02-个人体验外观快捷键通知.md",
+      "excerpt": "个人体验、外观、快捷键与通知 这一篇专讲不涉及代码安全边界的个人体验设置：General、Profile、Keyboard Shortcuts、Notifications、Appearance、Personalization、Context aware suggestions、Memories 和 Archived t",
+      "size": 6449,
+      "updatedAt": "2026-06-11T04:30:44.767Z"
+    },
+    {
+      "type": "file",
+      "name": "03-Agent配置权限沙箱网络与本地环境.md",
+      "title": "Agent 配置、权限、沙箱、网络与本地环境",
+      "path": "专题-Codex桌面端设置与计费规则/03-Agent配置权限沙箱网络与本地环境.md",
+      "excerpt": "Agent 配置、权限、沙箱、网络与本地环境 这一篇讲 Codex Desktop 中最影响安全、稳定性和成本的设置：Agent configuration、模型选择、权限、沙箱、网络、web search、 config.toml 、Local / Worktree / Cloud、Local environment",
+      "size": 6042,
+      "updatedAt": "2026-06-11T04:30:44.768Z"
+    },
+    {
+      "type": "file",
+      "name": "04-集成浏览器MCP插件Git自动化.md",
+      "title": "集成、浏览器、MCP、插件、Git 与自动化设置",
+      "path": "专题-Codex桌面端设置与计费规则/04-集成浏览器MCP插件Git自动化.md",
+      "excerpt": "集成、浏览器、MCP、插件、Git 与自动化设置 这一篇讲 Codex Desktop 如何连接外部工具，以及这些连接如何影响效率、安全和用量。 Integrations & MCP MCP 用来连接外部工具、私有上下文和动态数据。设置页可以启用推荐 server，也可以添加自定义 server。如果 server 需",
+      "size": 6862,
+      "updatedAt": "2026-06-11T07:28:12.351Z"
+    },
+    {
+      "type": "file",
+      "name": "05-计费规则总览与计划选择.md",
+      "title": "计费规则总览与计划选择",
+      "path": "专题-Codex桌面端设置与计费规则/05-计费规则总览与计划选择.md",
+      "excerpt": "计费规则总览与计划选择 本篇讲 Codex 的计划选择和计费入口。价格、额度和可用功能会变化，本文以 2026 06 11 核对到的官方资料为准。 先分清两套计费逻辑 Codex 有两种常见使用方式： 使用方式 计费逻辑 适合 使用 ChatGPT 账号登录 Codex 使用 ChatGPT 计划内 Codex 用量；",
+      "size": 6174,
+      "updatedAt": "2026-06-11T07:21:50.581Z"
+    },
+    {
+      "type": "file",
+      "name": "06-用量限制Credits与RateCard.md",
+      "title": "用量限制、Credits 与 Rate Card",
+      "path": "专题-Codex桌面端设置与计费规则/06-用量限制Credits与RateCard.md",
+      "excerpt": "用量限制、Credits 与 Rate Card 本篇讲 Codex 的 usage limits、credits、rate card、image generation、Fast mode 和用量查询。计费数字变化较快，所有数字以 2026 06 11 核对到的官方资料为准。 用量限制由什么决定 官方 pricing ",
+      "size": 7168,
+      "updatedAt": "2026-06-11T07:21:50.582Z"
+    },
+    {
+      "type": "file",
+      "name": "07-团队计费APIKey与管理员治理.md",
+      "title": "团队计费、API Key 与管理员治理",
+      "path": "专题-Codex桌面端设置与计费规则/07-团队计费APIKey与管理员治理.md",
+      "excerpt": "团队计费、API Key 与管理员治理 本篇面向 Business、Enterprise、Edu 和使用 API Key 的团队。重点是 workspace credits、Codex seats、automatic reload、spend controls、API Key 和管理员应该如何治理成本。 Busines",
+      "size": 6618,
+      "updatedAt": "2026-06-11T07:28:12.350Z"
+    },
+    {
+      "type": "file",
+      "name": "08-省额度技巧排障与检查清单.md",
+      "title": "省额度技巧、排障与检查清单",
+      "path": "专题-Codex桌面端设置与计费规则/08-省额度技巧排障与检查清单.md",
+      "excerpt": "省额度技巧、排障与检查清单 本篇把设置和计费结合起来，回答三个实际问题：为什么用量消耗很快、怎么让额度更耐用、管理员和个人如何定期检查。 省额度的核心原则 官方 pricing 页面给出的优化建议包括： 控制 prompt size。 移除不必要上下文。 减少 AGENTS.md 的体积，必要时用嵌套文件控制注入范围。",
+      "size": 7596,
+      "updatedAt": "2026-06-11T07:21:50.583Z"
+    },
+    {
+      "type": "file",
+      "name": "README.md",
+      "title": "Codex 桌面端设置与计费规则专题",
+      "path": "专题-Codex桌面端设置与计费规则/README.md",
+      "excerpt": "Codex 桌面端设置与计费规则专题 资料核对日期：2026 06 11 适用对象：使用 Codex Desktop 的个人用户、开发者、团队管理员、希望控制用量和成本的用户。 这组文档专门讲两件事： 1. Codex Desktop 设置怎么配 ：不只说明按钮在哪里，而是讲每个设置影响什么、推荐怎么选、什么场景要谨慎",
+      "size": 4448,
+      "updatedAt": "2026-06-11T07:21:50.580Z"
+    },
+    {
+      "type": "file",
+      "name": "SOURCES.md",
+      "title": "截图来源说明",
+      "path": "assets/screenshots/SOURCES.md",
+      "excerpt": "截图来源说明 这些操作截图来自 OpenAI 官方开发者文档中的真实 Codex 产品截图。为了避免暴露本机账号、项目路径、聊天内容和本地文件，未截取用户本机 Codex Desktop 界面。 真实界面可能会随 Codex 版本、账号权限、操作系统、主题和已安装插件变化。文档中的截图用于帮助读者识别功能位置和界面形态",
+      "size": 4912,
+      "updatedAt": "2026-06-11T04:11:19.946Z"
+    },
+    {
+      "type": "file",
+      "name": "01-快速入门.md",
+      "title": "快速入门",
+      "path": "01-快速入门.md",
+      "excerpt": "快速入门 本篇解决三个问题：如何打开项目、如何新建线程、如何在发送任务前选对模式和权限。刚开始使用 Codex Desktop 时，不要急着让它改代码，先让它读懂你的项目、工具链和边界。 适合场景 第一次在 Codex Desktop 中打开一个本地项目。 想让 Codex 解释代码、修改代码、生成文档或运行测试。 项",
+      "size": 6630,
+      "updatedAt": "2026-06-11T04:01:13.322Z"
+    },
+    {
+      "type": "file",
+      "name": "02-提示词与任务拆解.md",
+      "title": "提示词与任务拆解",
+      "path": "02-提示词与任务拆解.md",
+      "excerpt": "提示词与任务拆解 Codex 的输出质量很大程度取决于任务是否清晰。好提示词不是把话写得很长，而是把目标、上下文、限制和验收标准写清楚。 推荐结构 一个稳定的 Codex 提示词通常包含 6 个部分： 部分 作用 示例 背景 帮 Codex 定位项目和技术栈 “这是 React + Vite 项目，样式用 CSS Mo",
+      "size": 6829,
+      "updatedAt": "2026-06-11T04:01:13.325Z"
+    },
+    {
+      "type": "file",
+      "name": "03-项目上下文与AGENTS.md",
+      "title": "AGENTS.md",
+      "path": "03-项目上下文与AGENTS.md",
+      "excerpt": "项目上下文与 AGENTS.md AGENTS.md 是给 Codex 的长期项目说明。它适合放那些你不想每次重复说的内容：项目怎么构建、怎么测试、代码风格、审查重点、不能触碰的目录、发布注意事项。 什么时候需要 AGENTS.md 当你发现自己经常重复这些要求时，就应该写进 AGENTS.md ： “改完请运行 np",
+      "size": 6690,
+      "updatedAt": "2026-06-11T04:01:13.326Z"
+    },
+    {
+      "type": "file",
+      "name": "04-代码修改测试与审查.md",
+      "title": "代码修改测试与审查",
+      "path": "04-代码修改测试与审查.md",
+      "excerpt": "代码修改、测试与审查 Codex 能写代码，但你仍然需要把它的输出当作候选补丁来审查。可靠的工作流应该包含：明确范围、小步修改、运行验证、查看 diff、记录残留风险。 修改前：先收窄范围 在让 Codex 修改代码前，先说清楚： 允许改哪些文件或目录。 不允许改哪些文件或目录。 是否允许新增依赖。 是否需要新增测试。",
+      "size": 6819,
+      "updatedAt": "2026-06-11T04:01:13.327Z"
+    },
+    {
+      "type": "file",
+      "name": "05-Git与并行工作流.md",
+      "title": "Git与并行工作流",
+      "path": "05-Git与并行工作流.md",
+      "excerpt": "Git 与并行工作流 Codex Desktop 的一个核心价值是把线程、diff、Git 和 Worktree 放在同一个工作流里。你可以让 Codex 在本地目录直接工作，也可以让它在隔离的 Git worktree 中尝试方案。 Local 与 Worktree 的区别 模式 工作位置 适合场景 风险 Local",
+      "size": 6894,
+      "updatedAt": "2026-06-11T04:01:13.328Z"
+    },
+    {
+      "type": "file",
+      "name": "06-浏览器预览与前端调试.md",
+      "title": "浏览器预览与前端调试",
+      "path": "06-浏览器预览与前端调试.md",
+      "excerpt": "浏览器预览与前端调试 Codex Desktop 的 in app browser 适合你和 Codex 共同查看页面渲染结果：本地开发服务器、静态预览、无需登录的公开页面。它特别适合前端布局、视觉反馈和交互状态验证。 适合场景 预览 localhost 页面。 检查响应式布局、空状态、错误状态、加载状态。 用截图或标",
+      "size": 6836,
+      "updatedAt": "2026-06-11T04:01:13.330Z"
+    },
+    {
+      "type": "file",
+      "name": "07-Skills插件与MCP.md",
+      "title": "Skills插件与MCP",
+      "path": "07-Skills插件与MCP.md",
+      "excerpt": "Skills、插件与 MCP Codex Desktop 不只是一个聊天窗口。你可以用 Skills 固化工作流，用 Plugins 打包能力，用 MCP 连接外部工具和动态上下文。三者经常一起出现，但解决的问题不同。 一句话区分 能力 解决什么问题 典型例子 Skill 让 Codex 学会一套可复用工作流 生成 P",
+      "size": 8343,
+      "updatedAt": "2026-06-11T04:01:13.331Z"
+    },
+    {
+      "type": "file",
+      "name": "08-自动化与长期任务.md",
+      "title": "自动化与长期任务",
+      "path": "08-自动化与长期任务.md",
+      "excerpt": "自动化与长期任务 自动化适合把稳定、重复、范围清楚的任务交给 Codex 定期运行。它不是“让 Codex 自动做所有事”，而是把固定工作流变成可审查的后台任务。 适合自动化的任务 定期检查测试失败并总结原因。 每天查看依赖更新或安全公告。 定期生成项目状态摘要。 监控某个 PR、issue、部署或长时间运行的命令。 ",
+      "size": 6757,
+      "updatedAt": "2026-06-11T04:01:13.337Z"
+    },
+    {
+      "type": "file",
+      "name": "09-Windows桌面端技巧.md",
+      "title": "Windows桌面端技巧",
+      "path": "09-Windows桌面端技巧.md",
+      "excerpt": "Windows 桌面端技巧 Windows 版 Codex Desktop 可以在一个界面里处理项目、线程、worktree、Git、浏览器、插件和 Skills。Windows 用户最需要注意的是：项目到底在 PowerShell 原生环境还是 WSL2 环境中运行，工具链是否一致，Git 是否能被识别。 第一次配置",
+      "size": 7476,
+      "updatedAt": "2026-06-11T07:28:12.352Z"
+    },
+    {
+      "type": "file",
+      "name": "10-安全权限与常见问题.md",
+      "title": "安全权限与常见问题",
+      "path": "10-安全权限与常见问题.md",
+      "excerpt": "安全、权限与常见问题 Codex 能读取文件、运行命令、修改代码、连接工具。使用得越深入，越需要理解沙箱、批准、网络、外部工具和隐私边界。 两层安全模型 官方资料把安全控制分成两类： Sandbox mode ：技术上限制 Codex 能访问什么，例如能写哪些目录、是否能联网。 Approval policy ：决定哪",
+      "size": 8200,
+      "updatedAt": "2026-06-11T04:01:13.342Z"
+    },
+    {
+      "type": "file",
+      "name": "11-Codex桌面端设置详解.md",
+      "title": "Codex 桌面端设置详解",
+      "path": "11-Codex桌面端设置详解.md",
+      "excerpt": "Codex 桌面端设置详解 这篇是对整套文档的二轮补充。前 10 篇已经覆盖了入门、提示词、AGENTS.md、审查、Git、浏览器、Skills / Plugins / MCP、自动化、Windows 和安全，但对 Codex Desktop Settings 的系统介绍还不够完整。本篇专门补齐设置项、快捷入口和容易",
+      "size": 20792,
+      "updatedAt": "2026-06-11T07:28:12.352Z"
+    },
+    {
+      "type": "file",
+      "name": "README.md",
+      "title": "Codex Desktop 使用技巧",
+      "path": "README.md",
+      "excerpt": "Codex Desktop 使用技巧 资料核对日期：2026 06 11 适用范围：Codex Desktop，重点面向 Windows 用户，同时兼顾 Codex app、CLI、IDE extension 的通用工作流。 这套文档的目标不是简单罗列按钮，而是把 Codex Desktop 作为一个日常开发搭档来讲清",
+      "size": 7251,
+      "updatedAt": "2026-06-11T04:33:54.338Z"
+    }
+  ]
+}

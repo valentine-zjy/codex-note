@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="760" viewBox="0 0 1280 760" role="img" aria-label="diagrams/automation-loop.svg">
+<defs>
+<filter id="shadow" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="18" stdDeviation="18" flood-color="#0f172a" flood-opacity="0.16"/></filter>
+<style><![CDATA[
+text{font-family:"Microsoft YaHei","Segoe UI",Arial,sans-serif;letter-spacing:0;}
+.title{font-size:30px;font-weight:700;fill:#172033}
+.subtitle{font-size:18px;fill:#64748b}
+.small{font-size:15px;fill:#64748b}
+.body{font-size:18px;fill:#172033}
+.label{font-size:16px;font-weight:700;fill:#172033}
+.callout{font-size:15px;fill:#172033}
+.badge{font-size:14px;font-weight:700;fill:#dc2626}
+.mono{font-family:Consolas,"Cascadia Mono",monospace;font-size:15px;fill:#334155}
+]]></style>
+</defs>
+<defs>
+       <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+         <path d="M 0 0 L 10 5 L 0 10 z" fill="#334155" />
+       </marker>
+     </defs>
+     <rect width="1280" height="760" fill="#f6f8fb" />
+     <text x="64" y="72" class="title">自动化任务闭环</text>
+     <text x="64" y="104" class="subtitle">稳定任务自动跑，结果进入人工审查</text>
+     <g filter="url(#shadow)">
+       <rect x="48" y="134" width="1184" height="570" rx="20" fill="#ffffff" stroke="#d8dee9" />
+       <path d="M 335 295 C 372.5 295, 372.5 295, 410 295" fill="none" stroke="#334155" stroke-width="2.5" marker-end="url(#arrow)"/>
+                  
+<path d="M 620 295 C 657.5 295, 657.5 295, 695 295" fill="none" stroke="#334155" stroke-width="2.5" marker-end="url(#arrow)"/>
+                  
+<path d="M 800 355 C 765 355, 765 470, 730 470" fill="none" stroke="#334155" stroke-width="2.5" marker-end="url(#arrow)"/>
+                  
+<path d="M 520 530 C 375 530, 375 355, 230 355" fill="none" stroke="#334155" stroke-width="2.5" marker-end="url(#arrow)"/>
+                  <text x="354" y="520" class="small">迭代</text>
+       <rect x="125" y="235" width="210" height="120" rx="14" fill="#eaf1ff" stroke="#2563eb" stroke-width="2"/>
+              <text x="145" y="269" class="label">定义任务</text>
+              <text class="small"><tspan x="145" y="301">写清范围、频率、输出格式</tspan></text>
+<rect x="410" y="235" width="210" height="120" rx="14" fill="#f3ecff" stroke="#7c3aed" stroke-width="2"/>
+              <text x="430" y="269" class="label">定期运行</text>
+              <text class="small"><tspan x="430" y="301">使用默认沙箱和可用工具</tspan></text>
+<rect x="695" y="235" width="210" height="120" rx="14" fill="#fff2e8" stroke="#f97316" stroke-width="2"/>
+              <text x="715" y="269" class="label">进入 Triage</text>
+              <text class="small"><tspan x="715" y="301">查看发现、diff 和证据</tspan></text>
+<rect x="520" y="470" width="240" height="120" rx="14" fill="#eaf8ef" stroke="#16a34a" stroke-width="2"/>
+              <text x="540" y="504" class="label">调整自动化</text>
+              <text class="small"><tspan x="540" y="536">根据前几次结果收紧或扩展提示词</tspan></text>
+     </g>
+</svg>
