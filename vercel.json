@@ -4,8 +4,8 @@
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
   "functions": {
-    "api/*.mjs": {
-      "includeFiles": "content/**"
+    "api/**/*.mjs": {
+      "includeFiles": "{content/**,data/**,config/users.example.json}"
     }
   },
   "rewrites": [

@@ -1,0 +1,43 @@
+{
+  "resumes": {
+    "admin": {
+      "type": "link",
+      "title": "Valentin 的在线简历",
+      "url": "https://simplewebsitetest1.vercel.app/",
+      "updatedAt": "2026-06-11T00:00:00.000Z",
+      "reviewedBy": "system"
+    },
+    "Valentin": {
+      "type": "link",
+      "title": "Valentin 的在线简历",
+      "url": "https://simplewebsitetest1.vercel.app/",
+      "updatedAt": "2026-06-11T00:00:00.000Z",
+      "reviewedBy": "system"
+    }
+  },
+  "userProfiles": {},
+  "resumeRequests": [],
+  "knowledgeBases": [
+    {
+      "id": "valentin-codex-desktop",
+      "ownerUsername": "Valentin",
+      "ownerDisplayName": "Valentin",
+      "title": "Codex Desktop 使用技巧",
+      "description": "管理员 Valentin 的 Codex Desktop 知识库，收纳桌面端使用技巧、设置、计费与推荐清单。",
+      "rootPath": "knowledge-planet/Valentin/codex-desktop-guide",
+      "createdAt": "2026-06-12T00:00:00.000Z",
+      "updatedAt": "2026-06-12T00:00:00.000Z"
+    },
+    {
+      "id": "valentin-1",
+      "ownerUsername": "Valentin",
+      "ownerDisplayName": "Reader",
+      "title": "测试用1",
+      "description": "测试新建知识库",
+      "rootPath": "knowledge-planet/valentin/1",
+      "createdAt": "2026-06-12T02:42:31.010Z",
+      "updatedAt": "2026-06-12T02:42:31.010Z"
+    }
+  ],
+  "knowledgeRequests": []
+}

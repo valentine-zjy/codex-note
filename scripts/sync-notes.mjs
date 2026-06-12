@@ -6,7 +6,13 @@ const defaultSource = path.resolve(rootDir, "..", "codex使用技巧");
 const sourceDir = path.resolve(
   process.argv[2] ?? process.env.NOTES_SOURCE ?? defaultSource
 );
-const targetDir = path.resolve(rootDir, "content", "codex-desktop-guide");
+const targetDir = path.resolve(
+  rootDir,
+  "content",
+  "knowledge-planet",
+  "Valentin",
+  "codex-desktop-guide"
+);
 const contentDir = path.resolve(rootDir, "content");
 
 const ignoredNames = new Set([".git", "node_modules", "dist", ".vercel"]);

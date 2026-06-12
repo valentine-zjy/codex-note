@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1500" height="920" viewBox="0 0 1500 920" role="img" aria-label="线程、Worktree 与 Git 的关系">
+  <defs>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="18" stdDeviation="18" flood-color="#0f172a" flood-opacity="0.14"/>
+    </filter>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#334155"/>
+    </marker>
+    <style><![CDATA[
+      text{font-family:"Microsoft YaHei","PingFang SC","Segoe UI",Arial,sans-serif;letter-spacing:0;}
+      .title{font-size:36px;font-weight:800;fill:#172033}
+      .subtitle{font-size:20px;fill:#64748b}
+      .card-title{font-size:22px;font-weight:800;fill:#172033}
+      .card-body{font-size:18px;fill:#334155}
+      .arrow-label{font-size:17px;font-weight:700;fill:#64748b}
+      .caption{font-size:18px;fill:#334155}
+    ]]></style>
+  </defs>
+  <rect width="1500" height="920" fill="#f6f8fb"/>
+  <text x="64" y="76" class="title">线程、Worktree 与 Git 的关系</text>
+  <text x="64" y="112" class="subtitle">把对话、文件修改、提交和远程同步拆成清楚的协作链路</text>
+  <g filter="url(#shadow)">
+    <rect x="48" y="146" width="1404" height="708" rx="24" fill="#ffffff" stroke="#d8dee9"/>
+    <g>
+    <path d="M 336 380 L 367 380 L 398 380" fill="none" stroke="#334155" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+    
+  </g>
+<g>
+    <path d="M 648 380 L 679 380 L 710 380" fill="none" stroke="#334155" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+    
+  </g>
+<g>
+    <path d="M 960 380 L 991 380 L 1022 380" fill="none" stroke="#334155" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+    
+  </g>
+<g>
+    <path d="M 1147 460 C 1026 460, 1026 654, 905 654" fill="none" stroke="#334155" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+    
+  </g>
+<g>
+    <path d="M 555 654 C 385.5 654, 385.5 460, 216 460" fill="none" stroke="#334155" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+    <text x="260" y="662" class="arrow-label">新需求再开新线程</text>
+  </g>
+    <g>
+    <rect x="96" y="300" width="240" height="160" rx="18" fill="#eaf1ff" stroke="#2563eb" stroke-width="2.4"/>
+    <circle cx="124" cy="332" r="11" fill="#2563eb"/>
+    <text x="148" y="340" class="card-title">新建线程</text>
+    <text class="card-body"><tspan x="120" y="382">为任务保留完整上下文</tspan></text>
+  </g>
+<g>
+    <rect x="398" y="300" width="250" height="160" rx="18" fill="#f3ecff" stroke="#7c3aed" stroke-width="2.4"/>
+    <circle cx="426" cy="332" r="11" fill="#7c3aed"/>
+    <text x="450" y="340" class="card-title">独立工作区</text>
+    <text class="card-body"><tspan x="422" y="382">每条线程可以对应自己的文件状</tspan><tspan x="422" y="410">态</tspan></text>
+  </g>
+<g>
+    <rect x="710" y="300" width="250" height="160" rx="18" fill="#eaf8ef" stroke="#16a34a" stroke-width="2.4"/>
+    <circle cx="738" cy="332" r="11" fill="#16a34a"/>
+    <text x="762" y="340" class="card-title">修改与验证</text>
+    <text class="card-body"><tspan x="734" y="382">运行测试</tspan><tspan x="734" y="410">看 diff</tspan><tspan x="734" y="438">确认体验</tspan></text>
+  </g>
+<g>
+    <rect x="1022" y="300" width="250" height="160" rx="18" fill="#fff7e6" stroke="#d97706" stroke-width="2.4"/>
+    <circle cx="1050" cy="332" r="11" fill="#d97706"/>
+    <text x="1074" y="340" class="card-title">提交或 PR</text>
+    <text class="card-body"><tspan x="1046" y="382">commit</tspan><tspan x="1046" y="410">push</tspan><tspan x="1046" y="438">必要时创建 Pull Req</tspan><tspan x="1046" y="466">uest</tspan></text>
+  </g>
+<g>
+    <rect x="555" y="574" width="350" height="160" rx="18" fill="#e8fbff" stroke="#0891b2" stroke-width="2.4"/>
+    <circle cx="583" cy="606" r="11" fill="#0891b2"/>
+    <text x="607" y="614" class="card-title">同步主线</text>
+    <text class="card-body"><tspan x="579" y="656">合并后归档线程</tspan><tspan x="579" y="684">主分支保持清楚</tspan></text>
+  </g>
+    
+  </g>
+</svg>

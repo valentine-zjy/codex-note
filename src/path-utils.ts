@@ -75,7 +75,7 @@ export function parseRoute() {
   };
 }
 
-export function pageRoute(view: "home" | "notes" | "resume" | "todo") {
+export function pageRoute(view: "home" | "notes" | "resume" | "todo" | "planet" | "admin") {
   return view === "home" ? "#/" : `#/${view}`;
 }
 

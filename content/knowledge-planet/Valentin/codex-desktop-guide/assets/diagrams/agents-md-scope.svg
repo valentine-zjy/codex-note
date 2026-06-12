@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1500" height="920" viewBox="0 0 1500 920" role="img" aria-label="AGENTS.md 生效范围">
+  <defs>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="18" stdDeviation="18" flood-color="#0f172a" flood-opacity="0.14"/>
+    </filter>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#334155"/>
+    </marker>
+    <style><![CDATA[
+      text{font-family:"Microsoft YaHei","PingFang SC","Segoe UI",Arial,sans-serif;letter-spacing:0;}
+      .title{font-size:36px;font-weight:800;fill:#172033}
+      .subtitle{font-size:20px;fill:#64748b}
+      .card-title{font-size:22px;font-weight:800;fill:#172033}
+      .card-body{font-size:18px;fill:#334155}
+      .arrow-label{font-size:17px;font-weight:700;fill:#64748b}
+      .caption{font-size:18px;fill:#334155}
+    ]]></style>
+  </defs>
+  <rect width="1500" height="920" fill="#f6f8fb"/>
+  <text x="64" y="76" class="title">AGENTS.md 生效范围</text>
+  <text x="64" y="112" class="subtitle">越靠近文件的说明越具体，最终与用户请求共同决定执行方式</text>
+  <g filter="url(#shadow)">
+    <rect x="48" y="146" width="1404" height="708" rx="24" fill="#ffffff" stroke="#d8dee9"/>
+    <g>
+    <path d="M 400 333 L 440 333 L 480 333" fill="none" stroke="#334155" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+    
+  </g>
+<g>
+    <path d="M 760 333 L 800 333 L 840 333" fill="none" stroke="#334155" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+    
+  </g>
+<g>
+    <path d="M 1120 333 L 1130 413 L 1140 493" fill="none" stroke="#334155" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+    
+  </g>
+<g>
+    <path d="M 760 635 L 950 564 L 1140 493" fill="none" stroke="#334155" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+    
+  </g>
+<g>
+    <path d="M 620 416 C 620 416, 620 552, 620 552" fill="none" stroke="#334155" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+    <text x="538" y="498" class="arrow-label">请求可以补充更具体要求</text>
+  </g>
+    <g>
+    <rect x="120" y="250" width="280" height="166" rx="18" fill="#eaf1ff" stroke="#2563eb" stroke-width="2.4"/>
+    <circle cx="148" cy="282" r="11" fill="#2563eb"/>
+    <text x="172" y="290" class="card-title">全局说明</text>
+    <text class="card-body"><tspan x="144" y="332">长期偏好</tspan><tspan x="144" y="360">语言</tspan><tspan x="144" y="388">通用工作习惯</tspan></text>
+  </g>
+<g>
+    <rect x="480" y="250" width="280" height="166" rx="18" fill="#f3ecff" stroke="#7c3aed" stroke-width="2.4"/>
+    <circle cx="508" cy="282" r="11" fill="#7c3aed"/>
+    <text x="532" y="290" class="card-title">仓库说明</text>
+    <text class="card-body"><tspan x="504" y="332">项目结构</tspan><tspan x="504" y="360">命令</tspan><tspan x="504" y="388">测试和提交规则</tspan></text>
+  </g>
+<g>
+    <rect x="840" y="250" width="280" height="166" rx="18" fill="#eaf8ef" stroke="#16a34a" stroke-width="2.4"/>
+    <circle cx="868" cy="282" r="11" fill="#16a34a"/>
+    <text x="892" y="290" class="card-title">子目录说明</text>
+    <text class="card-body"><tspan x="864" y="332">特定模块的约定和边界</tspan></text>
+  </g>
+<g>
+    <rect x="480" y="552" width="280" height="166" rx="18" fill="#fff7e6" stroke="#d97706" stroke-width="2.4"/>
+    <circle cx="508" cy="584" r="11" fill="#d97706"/>
+    <text x="532" y="592" class="card-title">用户请求</text>
+    <text class="card-body"><tspan x="504" y="634">本次任务的目标</tspan><tspan x="504" y="662">限制和验收标准</tspan></text>
+  </g>
+<g>
+    <rect x="1140" y="410" width="260" height="166" rx="18" fill="#e8fbff" stroke="#0891b2" stroke-width="2.4"/>
+    <circle cx="1168" cy="442" r="11" fill="#0891b2"/>
+    <text x="1192" y="450" class="card-title">合成执行</text>
+    <text class="card-body"><tspan x="1164" y="492">按优先级理解后再读文件和修改</tspan></text>
+  </g>
+    
+  </g>
+</svg>
